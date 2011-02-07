@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+		<title>minimal.js testbed - attr</title>
+		<script src="../minimal.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript" charset="utf-8">
+			window.addEventListener("load", function(e) {
+				$m({
+					a: { href: "http://foo.com", content: "foo" }
+				});
+			}, false);
+		</script>
+	</head>
+	<body>
+		<a data-render="attr"></a>
+	</body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+		<title>minimal.js testbed - children+attr</title>
+		<script src="../minimal.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript" charset="utf-8">
+			window.addEventListener("load", function(e) {
+				$m({
+					"list":    [
+						{ a: { href: "http://foo.com", content: "foo" } },
+						{ a: { href: "http://bar.com", content: "bar" } },
+						{ a: { href: "http://baz.com", content: "baz" } }
+					],
+				});
+				
+				$m({ "list": [{ a: { href: "http://extra.com", content: "extra" }}] });
+			}, false);
+		</script>
+	</head>
+	<body>
+		<ul id="list" data-mode="append">
+			<li data-render="children"><a data-render="attr"></a></li>
+		</ul>
+	</body>
+</html>

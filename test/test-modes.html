@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+		<title>minimal.js testbed - modes</title>
+		<script src="../minimal.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript" charset="utf-8">
+			window.addEventListener("load", function(e) {
+				$m({
+					"header":  "this goes to h1",
+					"header2": "this goes to h2"
+				});
+			}, false);
+		</script>
+	</head>
+	<body>
+		<h1 id="header" data-mode="append">header: </h1>
+		<h2 id="header2" data-mode="prepend"> : stuff</h2>
+	</body>
+</html>

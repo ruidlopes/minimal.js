@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+		<title>minimal.js testbed - multiple children</title>
+		<script src="../minimal.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript" charset="utf-8">
+			window.addEventListener("load", function(e) {
+				$m({ "articles" : [
+					["foobar", "paragraph 1"],
+					["barbaz", "paragraph 2"]
+				]});
+			}, false);
+		</script>
+	</head>
+	<body>
+		<ul id="articles">
+			<li data-render="children">
+				<h2></h2>
+				<p></p>
+			</li>
+		</ul>
+	</body>
+</html>
