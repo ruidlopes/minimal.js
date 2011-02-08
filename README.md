@@ -230,7 +230,7 @@ will result in the following transformed HTML:
 
 ## Children
 
-The `children` renderer provides delegation of JSON data to a given HTML element's child elements. The JSON data can be either an `Array` (as exemplified below), an `Object`, or atomic values.
+The `children` renderer provides delegation of JSON data to a given HTML element's child elements. The JSON data can be either an `Array` (as exemplified below), an `Object` (where *keys* can be *id*, *class*, or *CSS selector* based), or atomic values.
 
 Consider the following HTML template snippet:
 
