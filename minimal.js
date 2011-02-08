@@ -66,7 +66,7 @@
 			var base = element && element.parentNode ? element.parentNode : document;
 			
 			element = typeof element === "string" ?
-				document.getElementById(element) || base.querySelector(element) : // by default, an id, otherwise a CSS selector
+				document.getElementById(element) || base.getElementsByClassName(element)[0] || base.querySelector(element) : // by default, an id, otherwise a CSS selector
 				element; // otherwise just assume it's any sort of DOM element
 			
 			if (element && dataset(element, "render") in customRenderers)
@@ -105,7 +105,7 @@
 		var iterable = Object.prototype.toString.call(json) === "[object Object]" ? json : [].concat(json);
 		
 		for (var item in iterable) {
-			var currentElement = element.children[item] || element.querySelector(item);
+			var currentElement = element.children[item] || element.getElementsByClassName(item)[0] || element.querySelector(item);
 			var currentJSON = iterable[item];
 			
 			window.$m.render(currentJSON, currentElement);

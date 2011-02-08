@@ -21,7 +21,7 @@ Yes, the current landscape for HTML templating is very rich. However, there are 
 * **Dynamic.** Afford reapplication of new data into an existing template (e.g., for AJAX re-binding of JSON data);
 * **Fast.** Examples: support caching; no `eval`-style directives;
 * **Extendable** to new functionality;
-* **Small.** Currently clocking 141 lines, including comments and whitespace *vs* 408 lines for this documentation.
+* **Small.** Currently clocking 139 lines, including comments and whitespace *vs* 408 lines for this documentation.
 
 
 # Usage
@@ -51,6 +51,7 @@ The function signature to render JSON data is:
 `json` is a hashmap of key/value pairs. Each *key* must represent a valid reference to an HTML element, in the following way:
 
 * if *key* is a valid *id* (i.e., analogous to `document.getElementById`), it defines the scope of applicability of its *value* counterpart;
+* if it is a valid *class* (i.e., analogous to `document.getElementsByClassName`), it applies the *value* to the first matched element;
 * otherwise, the *key* is interpreted as a *CSS selector* (i.e., analogous to `document.querySelector`).
 
 Afterwards, the *value* is applied to the corresponding HTML element.
@@ -280,46 +281,46 @@ For reference purposes, please find below a more complex example usage of the `m
 
 Consider the following HTML template snippet:
 
-	<h1></h1>
+	<h1 id="page-title"></h1>
 	<ul id="posts">
 		<li data-render="children">
-			<h2 data-render="children"><a data-render="attr"></a></h2>
-			<h3></h3>
-			<p></p>
+			<h2 class="title" data-render="children"><a class="link" data-render="attr"></a></h2>
+			<h3 class="date"></h3>
+			<p class="content"></p>
 		</li>
 	</ul>
 
 and the following Javascript:
 
 	$m({
-		h1: "A minimal.js blog",
-		posts: [
+		"page-title": "A minimal.js blog",
+		"posts": [
 			{
-				h2: { a: { href: "/posts/2", content: "second post" } },
-				h3: "Today",
-				p:  "Second post content"
+				"title"  : { "link": { href: "/posts/2", content: "second post" } },
+				"date"   : "Today",
+				"content":  "Second post content"
 			},
 			{
-				h2: { a: { href: "/posts/1", content: "first post" } },
-				h3: "Yesterday",
-				p:  "First post content"
+				"title"  : { "link": { href: "/posts/1", content: "first post" } },
+				"date"   : "Yesterday",
+				"content":  "First post content"
 			}
 		]
 	});
 
 will result in the following transformed HTML:
 
-	<h1>A minimal.js blog</h1>
+	<h1 id="page-title">A minimal.js blog</h1>
 	<ul id="posts">
 		<li data-render="children">
-			<h2 data-render="children"><a data-render="attr" href="/posts/2">second post</a></h2>
-			<h3>Today</h3>
-			<p>Second post content</p>
+			<h2 class="title" data-render="children"><a class="link" data-render="attr" href="/posts/2">second post</a></h2>
+			<h3 class="date">Today</h3>
+			<p class="content">Second post content</p>
 		</li>
 		<li data-render="children">
-			<h2 data-render="children"><a data-render="attr" href="/posts/1">first post</a></h2>
-			<h3>Yesterday</h3>
-			<p>First post content</p>
+			<h2 class="title" data-render="children"><a class="link" data-render="attr" href="/posts/1">first post</a></h2>
+			<h3 class="date">Yesterday</h3>
+			<p class="content">First post content</p>
 		</li>
 	</ul>
 	
