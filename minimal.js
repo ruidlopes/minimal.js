@@ -66,7 +66,7 @@
 			var base = element && element.parentNode ? element.parentNode : document;
 			
 			element = typeof element === "string" ?
-				document.getElementById(element) || base.getElementsByClassName(element)[0] || base.querySelector(element) : // by default, an id, otherwise a CSS selector
+				document.getElementById(element) || base.getElementsByClassName(element)[0] || base.querySelector(element) : // by default, an id, then a class, otherwise a CSS selector
 				element; // otherwise just assume it's any sort of DOM element
 			
 			if (element && dataset(element, "render") in customRenderers)
