@@ -23,6 +23,7 @@ Yes, the current landscape for HTML templating is very rich. However, there are 
 * **Extendable** to new functionality;
 * **Small.** Currently clocking 139 lines, including comments and whitespace *vs* 408 lines for this documentation.
 
+<a name="Usage"></a>
 
 # Usage
 
