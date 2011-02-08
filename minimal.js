@@ -103,14 +103,12 @@
 	// children custom renderer
 	window.$m.custom("children", function(json, element) {
 		var iterable = Object.prototype.toString.call(json) === "[object Object]" ? json : [].concat(json);
-		var position = 0;
 		
 		for (var item in iterable) {
-			var currentElement = element.children[item] || element.children[position];
+			var currentElement = element.children[item] || element.querySelector(item);
 			var currentJSON = iterable[item];
 			
 			window.$m.render(currentJSON, currentElement);
-			position++;
 		}
 	});
 	
