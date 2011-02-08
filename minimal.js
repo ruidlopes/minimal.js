@@ -35,14 +35,14 @@
 		
 		// builtin renderer for arrays
 		var renderArray = function(json, element) {
-			var child = element._cache || element.firstElementChild;
+			var child = element._cache || element.children[0];
 			element._cache = element._cache || element.removeChild(child);
 			
 			// if we're not appending nor prepending, remove children
 			if (!dataset(element, "mode"))
-				while (element.firstElementChild) element.removeChild(element.firstElementChild);
+				while (element.children[0]) element.removeChild(element.children[0]);
 			
-			var first = element.firstElementChild;
+			var first = element.children[0];
 			
 			// let cloneAndAttach handle modes, eh!
 			for (var i in json)
