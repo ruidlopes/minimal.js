@@ -1,6 +1,6 @@
 # minimal.js: HTML+JSON template engine
 
-(skip directly to [Usage](#Usage), if you wish)
+(skip directly to [Usage](#Usage), [a complex example usage](#Complex-example), and learn [how to extend with new features](#Extending))
 
 # Why?
 
@@ -276,6 +276,8 @@ will result in the following transformed HTML:
 
 For more information on how to use `nanotemplate.js`, please consult [its documentation](https://github.com/ruidlopes/nanotemplatejs).
 
+<a name="Complex-example"></a>
+
 # A more complex example
 
 For reference purposes, please find below a more complex example usage of the `minimal.js` template engine, simulating a blog posts page.
@@ -325,6 +327,7 @@ will result in the following transformed HTML:
 		</li>
 	</ul>
 	
+<a name="Extending"></a>
 
 # Extending with custom renderers
 
