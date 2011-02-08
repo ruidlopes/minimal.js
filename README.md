@@ -71,7 +71,7 @@ and the following Javascript:
 	$m({
 		h1: "this is a title",
 		p: "this is a paragraph",
-		footer: this is a footer
+		footer: "this is a footer"
 	});
 
 will result in the following transformed HTML:
