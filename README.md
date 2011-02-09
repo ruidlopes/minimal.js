@@ -2,7 +2,7 @@
 
 (skip directly to [Usage](#Usage), [a complex example usage](#Complex-example), and learn [how to extend with new features](#Extending))
 
-**New feature:** `minimal.js` now is [node.js](http://nodejs.org) compatible!
+**New feature:** `minimal.js` now is [node.js](http://nodejs.org) compatible, [check it out](#Node.js)!
 
 # Why?
 
@@ -23,7 +23,7 @@ Yes, the current landscape for HTML templating is very rich. However, there are 
 * **Dynamic.** Afford reapplication of new data into an existing template (e.g., for AJAX re-binding of JSON data);
 * **Fast.** Examples: support caching; no `eval`-style directives;
 * **Extendable** to new functionality;
-* **Small.** Currently clocking 139 lines + 15 for [node.js](http://nodejs.org) support, including comments and whitespace, *vs* 408 lines for this documentation.
+* **Small.** Currently clocking 139 lines + 15 for [node.js](http://nodejs.org) support, including comments and whitespace, *vs* 438 lines for this documentation.
 
 <a name="Usage"></a>
 
@@ -45,6 +45,8 @@ Afterwards, an object named `$m` is available at the `window` scope (and its ali
 > **Note:** Since it's the most common task to be done with this library, `$m` is also a `function` alias to `$m.render`.
 
 * `$m.custom`, to extend `minimal.js` with new renderers (discussed further below).
+
+<a name="Node.js"></a>
 
 ### Node.js
 
@@ -397,6 +399,7 @@ will result in the following transformed HTML:
 * Further simplify the template language (there's some room for this on the `children` mode);
 * <strike>Server-side template rendering (probably via [jsdom](https://github.com/tmpvar/jsdom));</strike> **done!**
 * Make `minimal.js` available via [npm](http://npmjs.org/);
+* Support `querySelector` via [Sizzle](http://sizzlejs.com/) for environments that don't support it;
 * Template composition (*includes*, *partials*, etc.);
 * Extendable `modes`;
 * Conditionals (probably as extendable modes);
