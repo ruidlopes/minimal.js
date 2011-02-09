@@ -1,5 +1,5 @@
 (function() {
-	var $m = function() {
+	window.minimal = window.$m = (function() {
 		// fix for browsers that don't support the dataset property
 		var dataset = function(element, ds) {
 			return element.dataset ?
@@ -83,9 +83,7 @@
 		render.render = render;
 		
 		return render;
-	};
-	
-	window.minimal = window.$m = $m();
+	})();
 	
 	// attr custom renderer
 	window.$m.custom("attr", function(json, element) {
