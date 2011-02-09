@@ -2,6 +2,8 @@
 
 (skip directly to [Usage](#Usage), [a complex example usage](#Complex-example), and learn [how to extend with new features](#Extending))
 
+**New feature:** `minimal.js` now is [node.js](http://nodejs.org) compatible!
+
 # Why?
 
 Yes, the current landscape for HTML templating is very rich. However, there are severe problems that create impedance on their usage, including:
@@ -21,7 +23,7 @@ Yes, the current landscape for HTML templating is very rich. However, there are 
 * **Dynamic.** Afford reapplication of new data into an existing template (e.g., for AJAX re-binding of JSON data);
 * **Fast.** Examples: support caching; no `eval`-style directives;
 * **Extendable** to new functionality;
-* **Small.** Currently clocking 139 lines, including comments and whitespace *vs* 408 lines for this documentation.
+* **Small.** Currently clocking 139 lines + 15 for [node.js](http://nodejs.org) support, including comments and whitespace, *vs* 408 lines for this documentation.
 
 <a name="Usage"></a>
 
@@ -30,6 +32,8 @@ Yes, the current landscape for HTML templating is very rich. However, there are 
 `minimal.js` relies on two core functionalities, *rendering* and *iterations*, and an auxiliary functionality, *modes*. A description of these functionalities is provided below. For further information and examples, check the `test` directory in this project.
 
 ## Setup
+
+### Browser
 
 Simplest of the setups, just add `minimal.js` to your HTML document:
 
@@ -42,6 +46,23 @@ Afterwards, an object named `$m` is available at the `window` scope (and its ali
 
 * `$m.custom`, to extend `minimal.js` with new renderers (discussed further below).
 
+### Node.js
+
+For [node.js](http://nodejs.org) support, `minimal.js` is dependent on the [jsdom]() library. To install it via `npm`, execute the following command:
+
+	npm install jsdom
+
+Now `minimal.js` is ready to be used, by importing the `minimal-node.js` module, as follows:
+
+	var minimal = require("./minimal-node");
+
+Since we're outside a browser's context, the actual HTML template has to be loaded. For that, the `minimal-node.js` library provides the `template` function to load a `string`-based template, which returns the `$m` object:
+
+	var $m = minimal.template("<html>...</html>");
+
+Afterwards, the `$m` object is available to be used just like in the browser. Additionally, the rendering of the HTML template can be accessed through the special function `$m.html()` available at this object:
+
+	var html = $m.html();
 
 ## Rendering
 
@@ -374,7 +395,8 @@ will result in the following transformed HTML:
 (in no particular order)
 
 * Further simplify the template language (there's some room for this on the `children` mode);
-* Server-side template rendering (probably via [jsdom](https://github.com/tmpvar/jsdom));
+* <strike>Server-side template rendering (probably via [jsdom](https://github.com/tmpvar/jsdom));</strike> **done!**
+* Make `minimal.js` available via [npm](http://npmjs.org/);
 * Template composition (*includes*, *partials*, etc.);
 * Extendable `modes`;
 * Conditionals (probably as extendable modes);
