@@ -46,9 +46,7 @@
 			
 			// let cloneAndAttach handle modes, eh!
 			for (var i in json)
-				customOrElse(json[i], cloneAndAttach(element._cache, element, first), function(j, e) {
-					render(j, e);
-				});
+				customOrElse(json[i], cloneAndAttach(element._cache, element, first), render);
 		};
 		
 		// builtin renderer for textual data (strings, numbers & booleans)
