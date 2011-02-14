@@ -8,13 +8,7 @@
 		};
 		
 		// custom template renderers
-		var customRenderers = {};
-		var custom = function(mode, f) {
-			customRenderers[mode] = f;
-		};
-		
-		// make the dataset function available to custom renderers
-		custom.dataset = dataset;
+		var custom = {};
 		
 		// clone node and attach it to the same parent
 		var cloneAndAttach = function(element, parent, first) {
@@ -27,8 +21,8 @@
 		
 		// builtin renderer for hashmaps
 		var renderObject = function(json, element) {
-			if (element && dataset(element, "render") in customRenderers)
-				customRenderers[dataset(element, "render")](json, element);
+			if (element && dataset(element, "render") in custom)
+				custom[dataset(element, "render")](json, element);
 			else
 				for (var i in json) render(json[i], i);
 		};
@@ -46,8 +40,8 @@
 			
 			// let cloneAndAttach handle modes, eh!
 			for (var i in json)
-				if (dataset(child, "render") in customRenderers)
-					customRenderers[dataset(child, "render")](json[i], cloneAndAttach(child, element, first));
+				if (dataset(child, "render") in custom)
+					custom[dataset(child, "render")](json[i], cloneAndAttach(child, element, first));
 				else
 					render(json[i], cloneAndAttach(child, element, first));
 		};
@@ -69,8 +63,8 @@
 				document.getElementById(element) || base.getElementsByClassName(element)[0] || base.getElementsByTagName(element)[0] || base.querySelector(element) : // by default, an id, then a class, otherwise a CSS selector
 				element; // otherwise just assume it's any sort of DOM element
 			
-			if (element && dataset(element, "render") in customRenderers)
-				customRenderers[dataset(element, "render")](json, element);
+			if (element && dataset(element, "render") in custom)
+				custom[dataset(element, "render")](json, element);
 			else
 				switch (Object.prototype.toString.call(json)) {
 					case "[object Object]": renderObject(json, element); break;
@@ -79,14 +73,15 @@
 				}
 		};
 		
-		render.custom = custom;
-		render.render = render;
+		render.dataset = dataset;
+		render.custom  = custom;
+		render.render  = render;
 		
 		return render;
 	})();
 	
 	// attr custom renderer
-	window.$m.custom("attr", function(json, element) {
+	window.$m.custom.attr = function(json, element) {
 		for (var i in json)
 			if (i === "content") {
 				if (typeof json[i] === "object")
@@ -96,10 +91,10 @@
 			}
 			else
 				element.setAttribute(i, json[i]);
-	});
+	};
 	
 	// children custom renderer
-	window.$m.custom("children", function(json, element) {
+	window.$m.custom.children = function(json, element) {
 		var iterable = Object.prototype.toString.call(json) === "[object Object]" ? json : [].concat(json);
 		
 		for (var item in iterable) {
@@ -108,7 +103,7 @@
 			
 			window.$m.render(currentJSON, currentElement);
 		}
-	});
+	};
 	
 	// embedded nanotemplate.js, available at https://github.com/ruidlopes/nanotemplatejs
 	(function() {
@@ -131,7 +126,7 @@
 	})();
 	
 	// nanotemplate.js custom renderer
-	window.$m.custom("nano", function(json, element) {
+	window.$m.custom.nano = function(json, element) {
 		element.template(json);
-	});
+	};
 })();

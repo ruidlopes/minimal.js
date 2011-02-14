@@ -23,7 +23,7 @@ Yes, the current landscape for HTML templating is very rich. However, there are 
 * **Dynamic.** Afford reapplication of new data into an existing template (e.g., for AJAX re-binding of JSON data);
 * **Fast.** Examples: support caching; no `eval`-style directives;
 * **Extendable** to new functionality;
-* **Small.** Currently clocking 137 lines + 15 for [node.js](http://nodejs.org) support, including comments and whitespace, *vs* 438 lines for this documentation.
+* **Small.** Currently clocking 132 lines + 15 for [node.js](http://nodejs.org) support, including comments and whitespace, *vs* 438 lines for this documentation.
 
 <a name="Usage"></a>
 
@@ -354,25 +354,21 @@ will result in the following transformed HTML:
 
 # Extending with custom renderers
 
-If the supplied functionality is limiting what you want to do with HTML templates and/or JSON data binding, you can extend `minimal.js` with your own renderers (or tailor existing ones to `minimal.js`'s *personality*). The `$m.custom` function provides this functionality, as follows:
+If the supplied functionality is limiting what you want to do with HTML templates and/or JSON data binding, you can extend `minimal.js` with your own renderers (or tailor existing ones to `minimal.js`'s *personality*). The `$m.custom` hashmap provides this functionality, as follows:
 
-	$m.custom(name, renderFunction)
+	$m.custom.name = function(json, element) { ... };
 
-where `name` is a `string` to be matched at `data-render` attributes, whereas `renderFunction` provides the custom templating functionality with the following signature:
-
-	function(json, element) { ... }
-
-where `json` corresponds to JSON data to be bound, and `element` is a DOM element contextualising the custom renderer.
+where `name` is a `string` to be matched at `data-render` attributes, which maps to a function that provides the custom templating functionality with the following parameters: `json` corresponds to JSON data to be bound, and `element` is a DOM element contextualising the custom renderer.
 
 > **Note:** authors may delegate DOM elements to other renderers by invoking the `$m(json, element)` function where appropriate (yes, `$m` can take an additional `element` as the rendering context - please tell this to nobody).
 
 Also, authors are *advised* to check for the presence of the `data-*` attributes (such as `data-mode`), and have their renderers act accordingly. An auxiliary function is provided for this feature, with the following signature:
 
- 	$m.custom.dataset(element, namespace)
+ 	$m.dataset(element, namespace)
 
- Example to get the `mode` of a given element:
+Example to get the `mode` of a given element:
 
- 	var mode = $m.custom.dataset(document.getElementById("some-element"), "mode")
+ 	var mode = $m.dataset(document.getElementById("some-element"), "mode")
 
 ## Example
 
@@ -382,9 +378,9 @@ Consider the following HTML template snippet:
 
 and the following Javascript:
 
-	$m.custom("foobar", function(json, element) {
+	$m.custom.foobar = function(json, element) {
 		element.innerHTML = json + " foobar";
-	});
+	};
 	
 	$m({ p: "this is" });
 
@@ -397,7 +393,6 @@ will result in the following transformed HTML:
 (in no particular order)
 
 * Further simplify the template language (there's some room for this on the `children` mode);
-* <strike>Server-side template rendering (probably via [jsdom](https://github.com/tmpvar/jsdom));</strike> **done!**
 * Make `minimal.js` available via [npm](http://npmjs.org/);
 * Support `querySelector` via [Sizzle](http://sizzlejs.com/) for environments that don't support it;
 * Template composition (*includes*, *partials*, etc.);
