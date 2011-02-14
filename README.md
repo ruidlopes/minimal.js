@@ -44,7 +44,7 @@ Afterwards, an object named `$m` is available at the `window` scope (and its ali
 * `$m.render`, to support rendering (including `iterations` and `modes` functionalities).
 > **Note:** Since it's the most common task to be done with this library, `$m` is also a `function` alias to `$m.render`.
 
-* `$m.custom`, to extend `minimal.js` with new renderers (discussed further below).
+* `$m.custom`, to extend `minimal.js` with new renderers (discussed [further below](#Extending)).
 
 <a name="Node.js"></a>
 
@@ -65,6 +65,14 @@ Since we're outside a browser's context, the actual HTML template has to be load
 Afterwards, the `$m` object is available to be used just like in the browser. Additionally, the rendering of the HTML template can be accessed through the special function `$m.html()` available at this object:
 
 	var html = $m.html();
+
+### Custom CSS Selector
+
+`minimal.js` comes bundled with a predefined CSS selector (basically, a wrapper on Element.querySelector). Since several JS libraries, such as jQuery, provide their own custom CSS selector, `minimal.js` can be configured to use appropriate implementations. To accomplish this, override the `$m.querySelector` function with a function that takes a `base` and a `selector` parameters. Here's an example for jQuery:
+
+	$m.querySelector = function(base, selector) {
+		return $(selector, base)[0];
+	};
 
 ## Rendering
 
@@ -394,7 +402,6 @@ will result in the following transformed HTML:
 
 * Further simplify the template language (there's some room for this on the `children` mode);
 * Make `minimal.js` available via [npm](http://npmjs.org/);
-* Support `querySelector` via [Sizzle](http://sizzlejs.com/) for environments that don't support it;
 * Template composition (*includes*, *partials*, etc.);
 * Extendable `modes`;
 * Conditionals (probably as extendable modes);

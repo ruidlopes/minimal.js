@@ -10,6 +10,9 @@
 		// custom template renderers
 		var custom = {};
 		
+		// default querySelector function, to be overridden by JS libs
+		var querySelector = function(base, selector) { return base.querySelector(selector); };
+		
 		// clone node and attach it to the same parent
 		var cloneAndAttach = function(element, parent, first) {
 			parent = parent || element.parentNode;
@@ -60,7 +63,7 @@
 			var base = element && element.parentNode ? element.parentNode : document;
 			
 			element = typeof element === "string" ?
-				document.getElementById(element) || base.getElementsByClassName(element)[0] || base.getElementsByTagName(element)[0] || base.querySelector(element) : // by default, an id, then a class, otherwise a CSS selector
+				document.getElementById(element) || base.getElementsByClassName(element)[0] || base.getElementsByTagName(element)[0] || querySelector(base, element) : // by default, an id, then a class, otherwise a CSS selector
 				element; // otherwise just assume it's any sort of DOM element
 			
 			if (element && dataset(element, "render") in custom)
@@ -73,9 +76,10 @@
 				}
 		};
 		
-		render.dataset = dataset;
-		render.custom  = custom;
-		render.render  = render;
+		render.dataset       = dataset;
+		render.custom        = custom;
+		render.querySelector = querySelector;
+		render.render        = render;
 		
 		return render;
 	})();
@@ -98,7 +102,7 @@
 		var iterable = Object.prototype.toString.call(json) === "[object Object]" ? json : [].concat(json);
 		
 		for (var item in iterable) {
-			var currentElement = element.children[item] || element.getElementsByClassName(item)[0] || element.getElementsByTagName(item)[0] || element.querySelector(item);
+			var currentElement = element.children[item] || element.getElementsByClassName(item)[0] || element.getElementsByTagName(item)[0] || window.$m.querySelector(element, item);
 			var currentJSON = iterable[item];
 			
 			window.$m.render(currentJSON, currentElement);
