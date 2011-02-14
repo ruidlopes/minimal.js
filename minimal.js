@@ -36,8 +36,7 @@
 		
 		// builtin renderer for arrays
 		var renderArray = function(json, element) {
-			var child = element._cache || element.children[0];
-			element._cache = element._cache || element.removeChild(child);
+			element._cache = element._cache || element.removeChild(element.children[0]);
 			
 			// if we're not appending nor prepending, remove children
 			if (!dataset(element, "mode"))
@@ -47,7 +46,7 @@
 			
 			// let cloneAndAttach handle modes, eh!
 			for (var i in json)
-				customOrElse(json[i], cloneAndAttach(child, element, first), function(j, e) {
+				customOrElse(json[i], cloneAndAttach(element._cache, element, first), function(j, e) {
 					render(j, e);
 				});
 		};
