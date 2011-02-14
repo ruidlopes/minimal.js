@@ -10,6 +10,11 @@
 		// custom template renderers
 		var custom = {};
 		
+		// delegate to custom renderer if found, else call render with f
+		var customOrElse = function(json, element, f) {
+			return (element && dataset(element, "render") in custom ? custom[dataset(element, "render")] : f)(json, element);
+		};
+		
 		// default querySelector function, to be overridden by JS libs
 		var querySelector = function(base, selector) { return base.querySelector(selector); };
 		
@@ -24,10 +29,9 @@
 		
 		// builtin renderer for hashmaps
 		var renderObject = function(json, element) {
-			if (element && dataset(element, "render") in custom)
-				custom[dataset(element, "render")](json, element);
-			else
-				for (var i in json) render(json[i], i);
+			customOrElse(json, element, function(j, e) {
+				for (var i in j) render(json[i], i);
+			});
 		};
 		
 		// builtin renderer for arrays
@@ -43,10 +47,9 @@
 			
 			// let cloneAndAttach handle modes, eh!
 			for (var i in json)
-				if (dataset(child, "render") in custom)
-					custom[dataset(child, "render")](json[i], cloneAndAttach(child, element, first));
-				else
-					render(json[i], cloneAndAttach(child, element, first));
+				customOrElse(json[i], cloneAndAttach(child, element, first), function(j, e) {
+					render(j, e);
+				});
 		};
 		
 		// builtin renderer for textual data (strings, numbers & booleans)
@@ -66,14 +69,13 @@
 				document.getElementById(element) || base.getElementsByClassName(element)[0] || base.getElementsByTagName(element)[0] || querySelector(base, element) : // by default, an id, then a class, otherwise a CSS selector
 				element; // otherwise just assume it's any sort of DOM element
 			
-			if (element && dataset(element, "render") in custom)
-				custom[dataset(element, "render")](json, element);
-			else
-				switch (Object.prototype.toString.call(json)) {
-					case "[object Object]": renderObject(json, element); break;
-					case "[object Array]":  renderArray(json, element);  break;
-					default:                renderText(json, element);   break;
+			customOrElse(json, element, function(j, e) {
+				switch (Object.prototype.toString.call(j)) {
+					case "[object Object]": renderObject(j, e); break;
+					case "[object Array]":  renderArray(j, e);  break;
+					default:                renderText(j, e);   break;
 				}
+			});
 		};
 		
 		render.dataset       = dataset;
