@@ -68,11 +68,23 @@ Afterwards, the `$m` object is available to be used just like in the browser. Ad
 
 ### Custom CSS Selector
 
-`minimal.js` comes bundled with a predefined CSS selector (basically, a wrapper on Element.querySelector). Since several JS libraries, such as jQuery, provide their own custom CSS selector, `minimal.js` can be configured to use appropriate implementations. To accomplish this, override the `$m.querySelector` function with a function that takes a `base` and a `selector` parameters. Here's an example for jQuery:
+`minimal.js` comes bundled with a predefined CSS selector (basically, a wrapper on Element.querySelector). Since several JS libraries, such as jQuery, provide their own custom CSS selector, `minimal.js` can be configured to use appropriate implementations. To accomplish this, override the `$m.querySelector` function with a function that takes a `base` and a `selector` parameters. Example implementations for some well-known libraries follow:
 
-	$m.querySelector = function(base, selector) {
-		return $(selector, base)[0];
-	};
+#### jQuery
+
+	$m.querySelector = function(base, selector) { return $(selector, base)[0]; };
+
+#### Dojo
+
+	$m.querySelector = function(base, selector) { return dojo.query(base).query(selector)[0]; };
+
+#### Prototype
+
+	$m.querySelector = function(base, selector) { return base.select(selector)[0]; };
+
+#### Sizzle
+
+	$m.querySelector = function(base, selector) { return Sizzle(selector, base)[0]; };
 
 ## Rendering
 
