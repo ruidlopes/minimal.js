@@ -122,7 +122,7 @@
 			}
 		};
 
-		if (typeof Element === "function")
+		if (typeof Element === "function" || typeof Element === "object")
 			Element.prototype.template = Element.prototype.t = function() {
 				this._tcache = this._tcache || this.innerHTML;
 				this.innerHTML = this._tcache.t.apply(this._tcache, arguments);
