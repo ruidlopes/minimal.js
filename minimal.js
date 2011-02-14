@@ -102,12 +102,11 @@
 	window.$m.custom.children = function(json, element) {
 		var iterable = Object.prototype.toString.call(json) === "[object Object]" ? json : [].concat(json);
 		
-		for (var item in iterable) {
-			var currentElement = element.children[item] || element.getElementsByClassName(item)[0] || element.getElementsByTagName(item)[0] || window.$m.querySelector(element, item);
-			var currentJSON = iterable[item];
-			
-			window.$m.render(currentJSON, currentElement);
-		}
+		for (var item in iterable)
+			window.$m.render(
+				iterable[item],
+				element.children[item] || element.getElementsByClassName(item)[0] || element.getElementsByTagName(item)[0] || window.$m.querySelector(element, item)
+			);
 	};
 	
 	// embedded nanotemplate.js, available at https://github.com/ruidlopes/nanotemplatejs
