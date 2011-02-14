@@ -23,7 +23,7 @@ Yes, the current landscape for HTML templating is very rich. However, there are 
 * **Dynamic.** Afford reapplication of new data into an existing template (e.g., for AJAX re-binding of JSON data);
 * **Fast.** Examples: support caching; no `eval`-style directives;
 * **Extendable** to new functionality;
-* **Small.** Currently clocking 132 lines + 15 for [node.js](http://nodejs.org) support, including comments and whitespace, *vs* 438 lines for this documentation.
+* **Small.** Currently clocking 136 lines + 15 for [node.js](http://nodejs.org) support, including comments and whitespace, *vs* 440 lines for this documentation.
 
 <a name="Usage"></a>
 
