@@ -39,8 +39,7 @@
 			element._cache = element._cache || element.removeChild(element.children[0]);
 			
 			// if we're not appending nor prepending, remove children
-			if (!dataset(element, "mode"))
-				while (element.children[0]) element.removeChild(element.children[0]);
+			if (!dataset(element, "mode")) element.innerHTML = "";
 			
 			var first = element.children[0];
 			
