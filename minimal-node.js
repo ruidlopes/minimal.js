@@ -4,12 +4,11 @@ exports.template = function(template) {
 	document = jsdom(template);
 	window   = document.createWindow();
 		
-	require("./minimal.js");
-		
-	var $m = window.$m;
-	$m.html = function() {
+	var minimal = require("./minimal");
+
+	minimal.$m.html = function() {
 		return document.documentElement.innerHTML;
 	};
 	
-	return $m;
+	return minimal.$m;
 };

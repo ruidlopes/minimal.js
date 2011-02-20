@@ -1,5 +1,5 @@
-(function() {
-	window.minimal = window.$m = (function() {
+(function(global) {
+	global.minimal = global.$m = (function() {
 		// fix for browsers that don't support the dataset property
 		var dataset = function(element, ds) {
 			return element.dataset ?
@@ -83,11 +83,11 @@
 	})();
 	
 	// attr custom renderer
-	window.$m.custom.attr = function(json, element) {
+	global.$m.custom.attr = function(json, element) {
 		for (var i in json)
 			if (i === "content") {
 				if (typeof json[i] === "object")
-					window.$m.render(json[i], element);
+					global.$m.render(json[i], element);
 				else
 					element.innerHTML = json[i];
 			}
@@ -96,13 +96,13 @@
 	};
 	
 	// children custom renderer
-	window.$m.custom.children = function(json, element) {
+	global.$m.custom.children = function(json, element) {
 		var iterable = Object.prototype.toString.call(json) === "[object Object]" ? json : [].concat(json);
 		
 		for (var item in iterable)
-			window.$m.render(
+			global.$m.render(
 				iterable[item],
-				element.children[item] || element.getElementsByClassName(item)[0] || element.getElementsByTagName(item)[0] || window.$m.querySelector(element, item)
+				element.children[item] || element.getElementsByClassName(item)[0] || element.getElementsByTagName(item)[0] || global.$m.querySelector(element, item)
 			);
 	};
 	
@@ -127,7 +127,7 @@
 	})();
 	
 	// nanotemplate.js custom renderer
-	window.$m.custom.nano = function(json, element) {
+	global.$m.custom.nano = function(json, element) {
 		element.template(json);
 	};
-})();
+})(typeof exports !== "undefined" ? exports : window);
