@@ -12,7 +12,7 @@
 		
 		// delegate to custom renderer if found, else call render with f
 		var customOrElse = function(json, element, f) {
-			return (element && dataset(element, "render") in custom ? custom[dataset(element, "render")] : f)(json, element);
+			(element && dataset(element, "render") in custom ? custom[dataset(element, "render")] : f)(json, element);
 		};
 		
 		// default querySelector function, to be overridden by JS libs
