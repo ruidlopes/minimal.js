@@ -1,5 +1,5 @@
 (function(global) {
-	global.minimal = global.$m = (function() {
+	global.minimal = global.$m = global.minimal || (function() {
 		// fix for browsers that don't support the dataset property
 		var dataset = function(element, ds) {
 			return element.dataset ?
