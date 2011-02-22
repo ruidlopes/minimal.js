@@ -1,6 +1,6 @@
 {
 	"name": "minimal",
-	"version": "v0.1.1",
+	"version": "v0.1.2",
 	"description": "minimal.js: HTML+JSON template engine",
 	"homepage": "https://github.com/ruidlopes/minimal.js",
 	"author": {

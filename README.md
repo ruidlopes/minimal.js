@@ -63,9 +63,9 @@ Afterwards, an object named `$m` is available at the `window` scope (and its ali
 
 	npm install jsdom minimal
 
-Now `minimal.js` is ready to be used, by importing the `minimal-node` module, as follows:
+Now `minimal.js` is ready to be used, by importing the `minimal` module, as follows:
 
-	var minimal = require("./minimal");
+	var minimal = require("minimal");
 
 Since we're outside a browser's context, the actual HTML template has to be loaded. For that, the `minimal-node.js` library provides the `template` function to load a `string`-based template, which returns the `$m` object:
 
