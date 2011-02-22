@@ -2,7 +2,16 @@
 
 (skip directly to [Usage](#Usage), [a complex example usage](#Complex-example), and learn [how to extend with new features](#Extending))
 
-**New feature:** `minimal.js` now is [node.js](http://nodejs.org) compatible, [check it out](#Node.js)!
+* version 0.1.2
+  * `npm` compatibility (installable via `npm install minimal`)
+
+* version 0.1.1
+  * Fixed SERIOUS bug on `minimal-node` that prevented multiple templates to coexist
+  * Performance improvements
+
+* version 0.1.0
+  * Initial version
+
 
 # Why?
 
@@ -50,13 +59,13 @@ Afterwards, an object named `$m` is available at the `window` scope (and its ali
 
 ### Node.js
 
-For [node.js](http://nodejs.org) support, `minimal.js` is dependent on the [jsdom]() library. To install it via `npm`, execute the following command:
+`minimal.js` is now available via `npm`. To install it (and dependencies), execute the following command:
 
-	npm install jsdom
+	npm install jsdom minimal
 
-Now `minimal.js` is ready to be used, by importing the `minimal-node.js` module, as follows:
+Now `minimal.js` is ready to be used, by importing the `minimal-node` module, as follows:
 
-	var minimal = require("./minimal-node");
+	var minimal = require("./minimal");
 
 Since we're outside a browser's context, the actual HTML template has to be loaded. For that, the `minimal-node.js` library provides the `template` function to load a `string`-based template, which returns the `$m` object:
 
