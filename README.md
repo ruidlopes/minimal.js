@@ -2,6 +2,9 @@
 
 (skip directly to [Usage](#Usage), [a complex example usage](#Complex-example), and learn [how to extend with new features](#Extending))
 
+* version 0.2.0
+  * pre and post processing filters
+
 * version 0.1.2
   * `npm` compatibility (installable via `npm install minimal`)
 
@@ -32,7 +35,7 @@ Yes, the current landscape for HTML templating is very rich. However, there are 
 * **Dynamic.** Afford reapplication of new data into an existing template (e.g., for AJAX re-binding of JSON data);
 * **Fast.** Examples: support caching; no `eval`-style directives;
 * **Extendable** to new functionality;
-* **Small.** Currently clocking 133 lines + 13 for [node.js](http://nodejs.org) support, including comments and whitespace, *vs* 440 lines for this documentation.
+* **Small.** Currently clocking 149 lines + 13 for [node.js](http://nodejs.org) support, including comments and whitespace, *vs* 497 lines for this documentation.
 
 <a name="Usage"></a>
 
@@ -417,16 +420,49 @@ will result in the following transformed HTML:
 
 	<p>this is foobar</p>
 
+
+# Extending with custom processors/filters
+
+`minimal.js` also supports element processing and filtering capabilities for JSON data. Processing and filtering can occur *before* and *after* rendering of each data item. There are two types of filters available under `$m.filters`: `pre` and `post`, as follows:
+
+	$m.filters.pre.name  = function(json, element) { ... };
+	$m.filters.post.name = function(json, element) { ... };
+
+By default, processors and filters are applied to every element. If you want to actively filter an element and stop rendering to a given JSON data item's children, add a `return false;` instruction to your filter.
+
+> **Note:** if the filter returns false, the `element` is removed from the document.
+
+## Example
+
+Consider the following HTML template snippet:
+
+	<ul id="foo">
+		<li></li>
+	</ul>
+
+and the following Javascript:
+
+	$m.filters.pre.no_threes = function(json, element) {
+		return json !== 3;
+	};
+	
+	$m({ "foo": [1, 2, 3] });
+
+will result in the following transformed HTML:
+
+	<ul id="foo">
+		<li>1</li>
+		<li>2</li>
+	</ul>
+
 # Coming soon
 
 (in no particular order)
 
 * Further simplify the template language (there's some room for this on the `children` mode);
-* Make `minimal.js` available via [npm](http://npmjs.org/);
 * Template composition (*includes*, *partials*, etc.);
 * Extendable `modes`;
 * Conditionals (probably as extendable modes);
-* Filters (probably as extendable modes);
 * Sorting (probably as extendable modes).
 
 

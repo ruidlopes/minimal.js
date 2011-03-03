@@ -15,6 +15,15 @@
 			(element && dataset(element, "render") in custom ? custom[dataset(element, "render")] : f)(json, element);
 		};
 		
+		// custom filters
+		var filters = { pre: {}, post: {} };
+		
+		// generic function to process filters (either pre or post)
+		var processFilters = function(filtersSubset, json, element) {
+			for (var i in filtersSubset)
+				if (filtersSubset[i](json, element) === false) return false;
+		};
+		
 		// default querySelector function, to be overridden by JS libs
 		var querySelector = function(base, selector) { return base.querySelector(selector); };
 		
@@ -65,6 +74,9 @@
 				document.getElementById(element) || base.getElementsByClassName(element)[0] || base.getElementsByTagName(element)[0] || querySelector(base, element) : // by default, an id, then a class, otherwise a CSS selector
 				element; // otherwise just assume it's any sort of DOM element
 			
+			// apply pre-processing filters
+			if (processFilters(filters.pre, json, element) === false) return base.removeChild(element);
+			
 			customOrElse(json, element, function(j, e) {
 				switch (Object.prototype.toString.call(j)) {
 					case "[object Object]": renderObject(j, e); break;
@@ -72,12 +84,16 @@
 					default:                renderText(j, e);   break;
 				}
 			});
+			
+			// apply post-processing filters
+			if (processFilters(filters.post, json, element) === false) return base.removeChild(element);
 		};
 		
 		render.dataset       = dataset;
 		render.custom        = custom;
 		render.querySelector = querySelector;
 		render.render        = render;
+		render.filters       = filters;
 		
 		return render;
 	})();

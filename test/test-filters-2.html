@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+		<title>minimal.js testbed - filters 2</title>
+		<script src="../minimal.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript" charset="utf-8">
+			$m.filters.pre.no_threes = function(json, element) {
+				return json !== 3;
+			};
+			
+			window.addEventListener("load", function(e) {
+				$m({ "list2": [1, 2, 3] });
+			}, false);
+		</script>
+	</head>
+	<body>
+		<ul id="list2">
+			<li></li>
+		</ul>
+	</body>
+</html>
