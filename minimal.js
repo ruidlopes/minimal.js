@@ -2,7 +2,7 @@
 	global.minimal = global.$m = global.minimal || (function() {
 		// fix for browsers that don't support the dataset property
 		var dataset = function(element, ds) {
-			return element.dataset ?
+			return !element ? undefined : element.dataset ?
 				element.dataset[ds] :
 				element.getAttribute("data-" + ds);
 		};
@@ -26,6 +26,9 @@
 		
 		// default querySelector function, to be overridden by JS libs
 		var querySelector = function(base, selector) { return base.querySelector(selector); };
+		
+		// default exception handler, to be overriden
+		var exceptionHandler = function() {};
 		
 		// clone node and attach it to the same parent
 		var cloneAndAttach = function(element, parent, first) {
@@ -70,9 +73,15 @@
 		var render = function(json, element) {
 			var base = element && element.parentNode ? element.parentNode : document;
 			
-			element = typeof element === "string" ?
+			element = element === undefined ? document.documentElement : typeof element === "string" ?
 				document.getElementById(element) || base.getElementsByClassName(element)[0] || base.getElementsByTagName(element)[0] || querySelector(base, element) : // by default, an id, then a class, otherwise a CSS selector
 				element; // otherwise just assume it's any sort of DOM element
+			
+			// ensure we have a real DOM element
+			if ((typeof Element === "function" || typeof Element === "object") && !(element instanceof Element)) {
+				render.exceptionHandler();
+				return;
+			};
 			
 			// apply pre-processing filters
 			if (processFilters(filters.pre, json, element) === false) return base.removeChild(element);
@@ -89,11 +98,12 @@
 			if (processFilters(filters.post, json, element) === false) return base.removeChild(element);
 		};
 		
-		render.dataset       = dataset;
-		render.custom        = custom;
-		render.querySelector = querySelector;
-		render.render        = render;
-		render.filters       = filters;
+		render.dataset          = dataset;
+		render.custom           = custom;
+		render.querySelector    = querySelector;
+		render.exceptionHandler = exceptionHandler;
+		render.render           = render;
+		render.filters          = filters;
 		
 		return render;
 	})();

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+		<title>minimal.js testbed - exception</title>
+		<script src="../minimal.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript" charset="utf-8">
+			$m.exceptionHandler = function() {
+				throw new Error("element not found");
+			};
+			
+			window.addEventListener("load", function(e) {
+				$m({
+					"non-existing-header":  "this will not go to h1",
+					"content": "and this doesn't go to p because we had an exception"
+				});
+			}, false);
+		</script>
+	</head>
+	<body>
+		<h1></h1>
+		<p id="content"></p>
+	</body>
+</html>

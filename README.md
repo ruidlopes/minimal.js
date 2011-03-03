@@ -4,6 +4,7 @@
 
 * version 0.2.0
   * pre and post processing filters
+  * exception handling
 
 * version 0.1.2
   * `npm` compatibility (installable via `npm install minimal`)
@@ -35,7 +36,7 @@ Yes, the current landscape for HTML templating is very rich. However, there are 
 * **Dynamic.** Afford reapplication of new data into an existing template (e.g., for AJAX re-binding of JSON data);
 * **Fast.** Examples: support caching; no `eval`-style directives;
 * **Extendable** to new functionality;
-* **Small.** Currently clocking 149 lines + 13 for [node.js](http://nodejs.org) support, including comments and whitespace, *vs* 497 lines for this documentation.
+* **Small.** Currently clocking 159 lines + 13 for [node.js](http://nodejs.org) support, including comments and whitespace, *vs* 504 lines for this documentation.
 
 <a name="Usage"></a>
 
@@ -97,6 +98,12 @@ Afterwards, the `$m` object is available to be used just like in the browser. Ad
 #### Sizzle
 
 	$m.querySelector = function(base, selector) { return Sizzle(selector, base)[0]; };
+
+### Custom exception handler
+
+By default, `minimal.js` does not fail in the case of encountering incorrect JSON bindings. However, it is possible to handle these exceptions with a custom `exceptionHandler` function:
+
+	$m.exceptionHandler = function() { ... };
 
 ## Rendering
 
