@@ -425,7 +425,7 @@ and the following Javascript:
 
 will result in the following transformed HTML:
 
-	<p>this is foobar</p>
+	<p data-render="foobar">this is foobar</p>
 
 
 # Extending with custom processors/filters
