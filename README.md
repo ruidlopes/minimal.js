@@ -42,7 +42,7 @@ Yes, the current landscape for HTML templating is very rich. However, there are 
 
 # Usage
 
-`minimal.js` relies on two core functionalities, *rendering* and *iterations*, and an auxiliary functionality, *modes*. A description of these functionalities is provided below. For further information and examples, check the [test directory](tree/master/test) in this project.
+`minimal.js` relies on two core functionalities, *rendering* and *iterations*, and an auxiliary functionality, *modes*. A description of these functionalities is provided below. For further information and examples, check the [test directory](https://github.com/ruidlopes/minimal.js/tree/master/test) in this project.
 
 ## Setup
 
