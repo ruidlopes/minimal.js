@@ -1,7 +1,12 @@
 (function(global) {
 	global.minimal = global.$m = global.minimal || (function() {
 		// fix for browsers that don't support the dataset property
-		var dataset = function(element, ds) {
+		var dataset = function(element, ds, value) {
+			if (element !== undefined && value !== undefined) {
+				if (element.dataset) element.dataset[ds] = value;
+				else element.setAttribute("data-" + ds, value);
+			}
+			
 			return !element ? undefined : element.dataset ?
 				element.dataset[ds] :
 				element.getAttribute("data-" + ds);
