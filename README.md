@@ -2,6 +2,9 @@
 
 (skip directly to [Usage](#Usage), [a complex example usage](#Complex-example), and learn [how to extend with new features](#Extending))
 
+* version 0.2.1
+  * default renderer for non-textual and non-array values is "children"
+
 * version 0.2.0
   * pre and post processing filters
   * exception handling
@@ -36,7 +39,7 @@ Yes, the current landscape for HTML templating is very rich. However, there are 
 * **Dynamic.** Afford reapplication of new data into an existing template (e.g., for AJAX re-binding of JSON data);
 * **Fast.** Examples: support caching; no `eval`-style directives;
 * **Extendable** to new functionality;
-* **Small.** Currently clocking 159 lines + 13 for [node.js](http://nodejs.org) support, including comments and whitespace, *vs* 504 lines for this documentation.
+* **Small.** Currently clocking 167 lines + 13 for [node.js](http://nodejs.org) support, including comments and whitespace.
 
 <a name="Usage"></a>
 
@@ -315,6 +318,13 @@ will result in the following transformed HTML:
 		<p>content</p>
 	</div>
 
+*As of version 0.2.1, `minimal.js` defaults JSON data rendering to the `children` renderer for `Object` types.* Thus, the previous example is equivalent to the following HTML template snippet:
+
+	<div>
+		<h2></h2>
+		<p></p>
+	</div>
+
 ## Nano
 
 The `nano` renderer provides [nanotemplate.js](https://github.com/ruidlopes/nanotemplatejs) capabilities to `minimal.js`. Example:
@@ -348,8 +358,8 @@ Consider the following HTML template snippet:
 
 	<h1 id="page-title"></h1>
 	<ul id="posts">
-		<li data-render="children">
-			<h2 class="title" data-render="children"><a class="link" data-render="attr"></a></h2>
+		<li>
+			<h2 class="title"><a class="link" data-render="attr"></a></h2>
 			<h3 class="date"></h3>
 			<p class="content"></p>
 		</li>
@@ -466,7 +476,6 @@ will result in the following transformed HTML:
 
 (in no particular order)
 
-* Further simplify the template language (there's some room for this on the `children` mode);
 * Template composition (*includes*, *partials*, etc.);
 * Extendable `modes`;
 * Conditionals (probably as extendable modes);
