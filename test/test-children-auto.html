@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+		<title>minimal.js testbed - children auto</title>
+		<script src="../minimal.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript" charset="utf-8">
+			window.addEventListener("load", function(e) {
+				$m({
+					"page-title": "A minimal.js blog",
+					"posts": [
+						{
+							"title"  : { "link": { href: "/posts/2", content: "second post" } },
+							"date"   : "Today",
+							"content":  "Second post content"
+						},
+						{
+							"title"  : { "link": { href: "/posts/1", content: "first post" } },
+							"date"   : "Yesterday",
+							"content":  "First post content"
+						}
+					]
+				});
+			}, false);
+		</script>
+	</head>
+	<body>
+		<h1 id="page-title"></h1>
+		<ul id="posts">
+			<li>
+				<h2 class="title"><a class="link" data-render="attr"></a></h2>
+				<h3 class="date"></h3>
+				<p class="content"></p>
+			</li>
+		</ul>
+	</body>
+</html>
