@@ -76,6 +76,7 @@
 		
 		// main renderer
 		var render = function(json, element) {
+			var hasElement = (element !== undefined);
 			var base = element && element.parentNode ? element.parentNode : document;
 			
 			element = element === undefined ? document.documentElement : typeof element === "string" ?
@@ -86,14 +87,16 @@
 			if ((typeof Element === "function" || typeof Element === "object") && !(element instanceof Element)) {
 				render.exceptionHandler();
 				return;
-			};
+			}
 			
 			// apply pre-processing filters
 			if (processFilters(filters.pre, json, element) === false) return base.removeChild(element);
 			
 			customOrElse(json, element, function(j, e) {
 				switch (Object.prototype.toString.call(j)) {
-					case "[object Object]": renderObject(j, e); break;
+					case "[object Object]": if (hasElement && !dataset(element, "render"))
+												dataset(element, "render", "children");
+											renderObject(j, e); break;
 					case "[object Array]":  renderArray(j, e);  break;
 					default:                renderText(j, e);   break;
 				}
