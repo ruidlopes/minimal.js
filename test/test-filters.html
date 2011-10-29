@@ -9,12 +9,12 @@
 				if (element && element.nodeName.toLowerCase() === "li")
 					element.setAttribute("title", "this is a title " + json);
 			};
-			
+
 			$m.filters.post.test2 = function(json, element) {
 				if (element && element.nodeName.toLowerCase() === "li")
 					element.innerHTML += ";";
 			};
-			
+
 			window.addEventListener("load", function(e) {
 				$m({ "list2": [0, 0, 0] });
 				$m({ "list2": [1, 2, 3] });
