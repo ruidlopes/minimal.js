@@ -8,14 +8,14 @@
 		"email": "ruidlopes@gmail.com",
 		"url": "http://ruidlopes.com"
 	},
-	
+
 	"main": "minimal-node",
-	
+
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/ruidlopes/minimal.js.git"
 	},
-	
+
 	"dependencies": {
 		"jsdom": ">=0.1.23"
 	}
